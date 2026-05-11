@@ -18,12 +18,12 @@ public class GrandSchtroumpf implements Personnage {
         }
 
         // Malus si une tempête est en cours
-        if (event != null && event.getName().equalsIgnoreCase("Tempête")) {
+        if (event != null && event.getName().equals("Tempête")) {
             efficiency -= 0.3;
         }
 
         // Bonus si c'est la fête du village
-        if (event != null && event.getName().equalsIgnoreCase("Fête du village")) {
+        if (event != null && event.getName().equals("Fête du village")) {
             efficiency += 0.4;
         }
 
