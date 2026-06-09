@@ -45,14 +45,15 @@ Le projet respecte une séparation stricte des responsabilités (MVC) afin de di
 * **Apache Maven** installé et configuré.
 
 ### Lancer le jeu depuis un IDE (Eclipse / STS)
-1.  Faites un **clic droit** sur la racine du projet.
-2.  Sélectionnez **Run As** > **Maven build...**
-3.  Dans la fenêtre de configuration qui s'ouvre, localisez le champ **Goals**.
-4.  Saisissez la commande suivante :
+1.  Dézziper le **classproject.zip** et mettez le à la racine du projet
+2.  Faites un **clic droit** sur la racine du projet.
+3.  Sélectionnez **Run As** > **Maven build...**
+4.  Dans la fenêtre de configuration qui s'ouvre, localisez le champ **Goals**.
+5.  Saisissez la commande suivante :
     ```bash
     javafx:run
     ```
-5.  Cliquez sur **Run** pour compiler et lancer l'application.
+6.  Cliquez sur **Run** pour compiler et lancer l'application.
 
 *Note : Pour vider les anciennes versions de compilation en cas de modification, vous pouvez exécuter un `mvn clean` au préalable.*
 
