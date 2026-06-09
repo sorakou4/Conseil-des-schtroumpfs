@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="vue.HomeViewController" fx:id="root">
+
+    <BorderPane fx:id="homePane" style="-fx-background-image: url('/images/background.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;">
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="Conseil des schtroumpfs" styleClass="home-title"/>
+                <Button text="JOUER"   styleClass="menu-button" onAction="#showPlayScreen"/>
+                <Button text="RÈGLES"  styleClass="menu-button" onAction="#showRules"/>
+                <Button text="QUITTER" styleClass="menu-button" onAction="#quitApp"/>
+            </VBox>
+        </center>
+        <bottom>
+            <HBox alignment="BOTTOM_RIGHT" styleClass="bottom-right-padding">
+                <Button text="⛭" styleClass="settings-button" onAction="#showSettings"/>
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+    <BorderPane fx:id="playPane" visible="false" style="-fx-background-image: url('/images/play-background.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;">
+        <top>
+            <HBox alignment="TOP_LEFT" styleClass="top-left-padding">
+                <Button text="🠸" styleClass="back-button" onAction="#showHomeScreen"/>
+            </HBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="18">
+                <Button text="NOUVELLE PARTIE" styleClass="menu-button" onAction="#showVillageNameScreen"/>
+                <Button text="CHARGER" styleClass="menu-button" onAction="#showLoadPanel"/>
+            </VBox>
+        </center>
+	        <top>
+			    <HBox>
+			        <Button text="🠸" styleClass="back-button" onAction="#showHomeScreen"/>
+			        <Region HBox.hgrow="ALWAYS"/>
+			        <HBox spacing="20" styleClass="top-right-padding">
+			            <Button text="🛒 BOUTIQUE" styleClass="scoreboard-button" onAction="#showShop"/>
+			            <Button text="🏆 SCOREBOARD" styleClass="scoreboard-button" onAction="#showScoreboard"/>
+			        </HBox>
+			    </HBox>
+			</top>
+       		<bottom>
+			    <HBox alignment="BOTTOM_RIGHT" styleClass="bottom-right-padding">
+			        <Button text="⛭" styleClass="settings-button" onAction="#showSettings"/>
+			    </HBox>
+			</bottom>
+    </BorderPane>
+
+    <BorderPane fx:id="villageNamePane" visible="false" style="-fx-background-image: url('/images/village-name-background.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;">
+        <top>
+            <HBox alignment="TOP_LEFT" styleClass="top-left-padding">
+                <Button text="🠸" styleClass="back-button" onAction="#showPlayScreen"/>
+            </HBox>
+        </top>
+        <center>
+            <VBox alignment="CENTER" spacing="28">
+                <Label text="Nom du Village" styleClass="village-name-title"/>
+                <TextField fx:id="villageNameField" promptText="Entrez le nom du village" styleClass="village-name-field"/>
+                <Button fx:id="enterVillageButton" text="ENTRER DANS LE VILLAGE" styleClass="menu-button-wide"/>
+            </VBox>
+        </center>
+        <bottom>
+            <HBox alignment="BOTTOM_RIGHT" styleClass="bottom-right-padding">
+                <Button text="⛭" styleClass="settings-button" onAction="#showSettings"/>
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+    <VBox fx:id="settingsPanel" visible="false" alignment="TOP_LEFT" spacing="16" styleClass="settings-panel">
+        <HBox alignment="CENTER_LEFT">
+            <Label text="PARAMÈTRES" styleClass="settings-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="X" styleClass="close-settings-button" onAction="#hideSettings"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="Volume" styleClass="settings-label"/>
+            <Slider fx:id="volumeSlider" min="0" max="100" value="50"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="SFX    " styleClass="settings-label"/>
+            <Slider fx:id="sfxSlider" min="0" max="100" value="75"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <Button text="Fenêtré"    styleClass="small-button" onAction="#setWindowedMode"/>
+            <Button text="Plein écran" styleClass="small-button" onAction="#setFullScreenMode"/>
+        </HBox>
+        <Separator/>
+        <Label text="MODE DALTONIEN" styleClass="settings-label"/>
+        <HBox spacing="8">
+            <Button fx:id="cbNone"   text="Aucun"        styleClass="colorblind-btn-active" onAction="#cbNone"/>
+            <Button fx:id="cbDeuter" text="Deutéranopie" styleClass="colorblind-btn"        onAction="#cbDeuteran"/>
+            <Button fx:id="cbProtan" text="Protanopie"   styleClass="colorblind-btn"        onAction="#cbProtan"/>
+        </HBox>
+        <HBox spacing="8">
+            <Button fx:id="cbTritan" text="Tritanopie"   styleClass="colorblind-btn"        onAction="#cbTritan"/>
+            <Button fx:id="cbAchro"  text="Achromatopsie" styleClass="colorblind-btn"       onAction="#cbAchromat"/>
+        </HBox>
+    </VBox>
+
+    <StackPane fx:id="rulesPanel" visible="false" maxWidth="900" maxHeight="520">
+        <ImageView fitWidth="900" fitHeight="520" preserveRatio="true">
+            <image><Image url="@../images/parchemin.png"/></image>
+        </ImageView>
+        <VBox alignment="TOP_LEFT" spacing="15" maxWidth="620" maxHeight="340" translateY="20">
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="rulesTitle" styleClass="rules-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="X" styleClass="close-rules-button" onAction="#hideRules"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20">
+                <ImageView fx:id="characterImage" fitWidth="210" fitHeight="210" preserveRatio="true"/>
+                <ScrollPane prefWidth="400" prefHeight="220" fitToWidth="true" styleClass="transparent-scroll">
+                    <Label fx:id="rulesText" wrapText="true" styleClass="rules-text"/>
+                </ScrollPane>
+            </HBox>
+            <HBox alignment="CENTER" spacing="420">
+                <Button fx:id="previousPageButton" text="◀" styleClass="arrow-button" onAction="#previousRulePage" visible="false"/>
+                <Button fx:id="nextPageButton" text="▶" styleClass="arrow-button" onAction="#nextRulePage"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+
+
+    <StackPane fx:id="loadOverlay" visible="false" style="-fx-background-color: rgba(0,0,0,0.55);">
+        <VBox styleClass="slot-panel" alignment="TOP_CENTER" spacing="14">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="CHARGER UNE PARTIE" styleClass="slot-panel-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕" styleClass="slot-close-button" onAction="#hideLoadPanel"/>
+            </HBox>
+            <Button fx:id="loadSlot1" styleClass="slot-button-empty" onAction="#loadSlot1"/>
+            <Button fx:id="loadSlot2" styleClass="slot-button-empty" onAction="#loadSlot2"/>
+            <Button fx:id="loadSlot3" styleClass="slot-button-empty" onAction="#loadSlot3"/>
+            <Button fx:id="loadSlot4" styleClass="slot-button-empty" onAction="#loadSlot4"/>
+        </VBox>
+    </StackPane>
+
+    <StackPane fx:id="scoreboardOverlay" visible="false" style="-fx-background-color: rgba(0,0,0,0.55);">
+        <VBox styleClass="scoreboard-panel" alignment="TOP_CENTER" spacing="10">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="🏆  SCOREBOARD" styleClass="scoreboard-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕" styleClass="slot-close-button" onAction="#hideScoreboard"/>
+            </HBox>
+            <HBox spacing="0">
+                <Label text="#" minWidth="40"  styleClass="scoreboard-header"/>
+                <Label text="Village" minWidth="200" styleClass="scoreboard-header"/>
+                <Label text="Score" minWidth="100" styleClass="scoreboard-header"/>
+                <Label text="Tours" minWidth="80" styleClass="scoreboard-header"/>
+                <Label text="Date" minWidth="160" styleClass="scoreboard-header"/>
+            </HBox>
+            <Separator/>
+            <ScrollPane fitToWidth="true" prefHeight="300" styleClass="transparent-scroll">
+                <VBox fx:id="scoreboardContent" spacing="4"/>
+            </ScrollPane>
+            <Button text="Effacer le classement" styleClass="small-button" onAction="#clearScoreboard"/>
+        </VBox>
+    </StackPane>
+
+</StackPane>

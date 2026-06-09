@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="vue.GameViewController" fx:id="root">
+
+    <BorderPane fx:id="gamePane" style="-fx-background-image: url('/images/game-background.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat;">
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+
+        <top>
+            <HBox alignment="CENTER" spacing="30">
+                <Label fx:id="titleLabel" styleClass="game-title-label"/>
+                <Label fx:id="monthLabel" styleClass="game-month-label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="menuButton" text="☰" styleClass="menu-hamburger-button"  onAction="#toggleIngameMenu"/>
+            </HBox>
+        </top>
+
+        <left>
+            <VBox alignment="TOP_CENTER" spacing="15" styleClass="resource-panel">
+                <Label text="RESSOURCES" styleClass="resource-panel-title"/>
+                <VBox fx:id="resourcesBox" alignment="TOP_LEFT" spacing="8" />
+            </VBox>
+        </left>
+
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="ÉVÉNEMENT DU MOIS" styleClass="event-section-title"/>
+                <Label fx:id="eventLabel" wrapText="true" alignment="CENTER" styleClass="event-label"/>
+                <Label fx:id="messageLabel" wrapText="true" alignment="CENTER" styleClass="message-label"/>
+            </VBox>
+        </center>
+
+        <bottom>
+            <HBox alignment="CENTER" spacing="20" styleClass="council-panel">
+                <padding><Insets top="22" bottom="22"/></padding>
+
+                <HBox alignment="CENTER" spacing="12">
+                    <VBox alignment="CENTER" spacing="12">
+                        <Label text="SCHTROUMPF 1" styleClass="smurf-choice-title"/>
+                        <ChoiceBox fx:id="characterChoice1" styleClass="choice-box"/>
+                        <ChoiceBox fx:id="actionChoice1"    styleClass="choice-box"/>
+                    </VBox>
+                    <ImageView fx:id="characterImage1" fitWidth="120" fitHeight="120" preserveRatio="true"/>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="12">
+                    <VBox alignment="CENTER" spacing="12">
+                        <Label text="SCHTROUMPF 2" styleClass="smurf-choice-title"/>
+                        <ChoiceBox fx:id="characterChoice2" styleClass="choice-box"/>
+                        <ChoiceBox fx:id="actionChoice2"    styleClass="choice-box"/>
+                    </VBox>
+                    <ImageView fx:id="characterImage2" fitWidth="120" fitHeight="120" preserveRatio="true"/>
+                
+                </HBox>
+                <Button fx:id="validateButton" text="VALIDER&#10;LES ACTIONS" styleClass="validate-button" onAction="#handleValidate"/>
+                <Button fx:id="recapButton" text="RÉCAP&#10;TOURS" styleClass="recap-open-button" onAction="#toggleRecap"/>
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+
+    <StackPane fx:id="eventPopup" visible="false" styleClass="popup-overlay">
+        <Pane prefWidth="1480" prefHeight="950" style="-fx-background-image: url('/images/event-popup.png'); -fx-background-size: 1480px 950px; -fx-background-repeat: no-repeat; -fx-background-position: center;">
+            <ScrollPane layoutX="805" layoutY="360" prefWidth="430" prefHeight="220" fitToWidth="true" styleClass="transparent-scroll">
+                <Label fx:id="eventPopupText" wrapText="true" styleClass="popup-text"/>
+            </ScrollPane>
+            <Button fx:id="continueButton" text="CONTINUER" layoutX="870" layoutY="595" prefWidth="270" prefHeight="68" styleClass="continue-button" onAction="#handleContinue"/>
+        </Pane>
+    </StackPane>
+
+    <StackPane fx:id="ingameMenuOverlay" visible="false"
+               style="-fx-background-color: rgba(0,0,0,0.20);">
+        <VBox styleClass="ingame-menu-panel" alignment="CENTER" spacing="16">
+            <Label text="MENU" styleClass="ingame-menu-title"/>
+            <Button text="▶  REPRENDRE" styleClass="ingame-menu-button"  onAction="#toggleIngameMenu"/>
+            <Button text="💾  SAUVEGARDER" styleClass="ingame-menu-button" onAction="#showSavePanel"/>
+            <Button text="⚙  PARAMÈTRES" styleClass="ingame-menu-button" onAction="#showIngameSettings"/>
+            <Button text="📖  RÈGLES" styleClass="ingame-menu-button"  onAction="#showIngameRules"/>
+            <Button text="🛒  BOUTIQUE" styleClass="ingame-menu-button" onAction="#showShop"/>
+            <Separator/>
+            <Button text="🚪  QUITTER" styleClass="ingame-menu-quit-button" onAction="#quitToHome"/>
+        </VBox>
+    </StackPane>
+
+    <StackPane fx:id="saveOverlay" visible="false"
+               style="-fx-background-color: rgba(0,0,0,0.20);">
+        <VBox styleClass="slot-panel" alignment="TOP_CENTER" spacing="14">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="SAUVEGARDER" styleClass="slot-panel-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕" styleClass="slot-close-button" onAction="#hideSavePanel"/>
+            </HBox>
+            <Button fx:id="saveSlot1" styleClass="slot-button-empty" onAction="#saveSlot1"/>
+            <Button fx:id="saveSlot2" styleClass="slot-button-empty" onAction="#saveSlot2"/>
+            <Button fx:id="saveSlot3" styleClass="slot-button-empty" onAction="#saveSlot3"/>
+            <Button fx:id="saveSlot4" styleClass="slot-button-empty" onAction="#saveSlot4"/>
+        </VBox>
+    </StackPane>
+
+    <StackPane fx:id="recapOverlay" visible="false" style="-fx-background-color: rgba(0,0,0,0.55);">
+        <VBox styleClass="recap-panel" alignment="TOP_CENTER" spacing="10">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="RÉCAPITULATIF DES TOURS" styleClass="recap-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="X" styleClass="close-settings-button" onAction="#toggleRecap"/>
+            </HBox>
+            <Separator/>
+            <ScrollPane fx:id="recapScrollPane" fitToWidth="true" prefHeight="480" styleClass="transparent-scroll">
+                <VBox fx:id="recapContent" spacing="12"/>
+            </ScrollPane>
+        </VBox>
+    </StackPane>
+
+    <VBox fx:id="ingameSettingsPanel" visible="false" alignment="TOP_LEFT" spacing="16" styleClass="settings-panel">
+        <HBox alignment="CENTER_LEFT">
+            <Label text="PARAMÈTRES" styleClass="settings-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="X" styleClass="close-settings-button" onAction="#hideIngameSettings"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="Volume" styleClass="settings-label"/>
+            <Slider fx:id="volumeSlider" min="0" max="100" value="25"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="SFX    " styleClass="settings-label"/>
+            <Slider fx:id="sfxSlider" min="0" max="100" value="75"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <Button text="Fenêtré"     styleClass="small-button" onAction="#setWindowedMode"/>
+            <Button text="Plein écran" styleClass="small-button" onAction="#setFullScreenMode"/>
+        </HBox>
+        <Separator/>
+        <Label text="MODE DALTONIEN" styleClass="settings-label"/>
+        <HBox spacing="8">
+            <Button fx:id="cbNone" text="Aucun" styleClass="colorblind-btn-active" onAction="#cbNone"/>
+            <Button fx:id="cbDeuter" text="Deutéranopie" styleClass="colorblind-btn" onAction="#cbDeuteran"/>
+            <Button fx:id="cbProtan" text="Protanopie" styleClass="colorblind-btn" onAction="#cbProtan"/>
+        </HBox>
+        <HBox spacing="8">
+            <Button fx:id="cbTritan" text="Tritanopie" styleClass="colorblind-btn" onAction="#cbTritan"/>
+            <Button fx:id="cbAchro" text="Achromatopsie" styleClass="colorblind-btn" onAction="#cbAchromat"/>
+        </HBox>
+    </VBox>
+
+	<StackPane fx:id="endScreenOverlay" visible="false" style="-fx-background-color: rgba(0,0,0,0.72); -fx-pref-width: 1536px; -fx-pref-height: 1024px;" maxWidth="Infinity" maxHeight="Infinity">
+   		<VBox alignment="CENTER" spacing="28" styleClass="end-screen-panel">
+       		<Label fx:id="endScreenTitle" styleClass="end-screen-title"/>
+       		<Label fx:id="endScreenScore" styleClass="end-screen-score"/>
+       		<Button fx:id="endRecapButton" text="RÉCAP DES TOURS" styleClass="end-recap-button" onAction="#toggleRecap"/>
+       		<Button text="RETOUR À L'ACCUEIL" styleClass="end-quit-button" onAction="#quitToHome"/>
+   		</VBox>
+	</StackPane>
+
+    <StackPane fx:id="ingameRulesPanel" visible="false" maxWidth="860" maxHeight="500">
+        <ImageView fitWidth="860" fitHeight="500" preserveRatio="true">
+            <image><Image url="/images/parchemin.png"/></image>
+        </ImageView>
+        <VBox alignment="TOP_LEFT" spacing="14"
+              maxWidth="580" maxHeight="320" translateY="20">
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="ingameRulesTitle" styleClass="rules-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="X" styleClass="close-rules-button" onAction="#hideIngameRules"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20">
+                <ImageView fx:id="ingameRulesCharImage" fitWidth="180" fitHeight="180" preserveRatio="true"/>
+                <ScrollPane prefWidth="380" prefHeight="200" fitToWidth="true" styleClass="transparent-scroll">
+                    <Label fx:id="ingameRulesText" wrapText="true" styleClass="rules-text"/>
+                </ScrollPane>
+            </HBox>
+            <HBox alignment="CENTER" spacing="400">
+                <Button fx:id="ingameRulesPrevBtn" text="◀" styleClass="arrow-button"  onAction="#ingameRulesPrev" visible="false"/>
+                <Button fx:id="ingameRulesNextBtn" text="▶" styleClass="arrow-button" onAction="#ingameRulesNext"/>
+            </HBox>
+        </VBox>
+        
+    </StackPane>
+
+</StackPane>
