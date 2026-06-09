@@ -1,0 +1,11 @@
+package modele;
+
+public enum EventType {
+
+    GARGAMEL_ATTACK,
+    MAGIC_BERRIES_DISCOVERY,
+    FRIENDLY_VILLAGE_VISIT,
+    SARSAPARILLA_STORM,
+    SMURF_FESTIVAL,
+    FOREST_CURSE
+}

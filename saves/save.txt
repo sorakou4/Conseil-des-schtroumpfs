@@ -1,0 +1,11 @@
+=== SLOT 1 ===
+EMPTY
+=== END SLOT 1 ===
+=== SLOT 2 ===
+EMPTY
+=== END SLOT 2 ===
+=== SLOT 3 ===
+EMPTY
+=== END SLOT 3 ===
+=== SLOT 4 ===
+EMPTY
