@@ -44,7 +44,7 @@ Le projet respecte une séparation stricte des responsabilités (MVC) afin de di
 * **Java Development Kit (JDK)** version **21** ou supérieure.
 * **Apache Maven** installé et configuré.
 
-### Lancer le jeu depuis un IDE (Eclipse / STS)
+### Lancer le jeu depuis un IDE (Eclipse)
 1.  Dézziper le **classproject.zip** et mettez le à la racine du projet
 2.  Faites un **clic droit** sur la racine du projet.
 3.  Sélectionnez **Run As** > **Maven build...**
